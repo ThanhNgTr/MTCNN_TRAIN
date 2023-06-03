@@ -6,7 +6,7 @@ Created on Fri May 25 09:05:31 2018
 @author: wujiyang
 """
 import sys
-sys.path.append('/home/wujiyang/FaceProjects/MTCNN_TRAIN')
+sys.path.append('E:\DOANTHUE\MTCNN_TRAIN')
 
 import os
 import cv2
@@ -53,10 +53,12 @@ def gen_data(anno_file, data_dir, prefix):
 
         gt_box = map(float, annotation[1:5])
         # the bounging box in original anno_file is [left, right, top, bottom]
+        gt_box = list(gt_box)
         gt_box = [gt_box[0], gt_box[2], gt_box[1], gt_box[3]] #[left, top, right, bottom] 
         gt_box = np.array(gt_box, dtype=np.int32)
         
         landmark = map(float, annotation[5:])
+        landmark = list(landmark)
         landmark = np.array(landmark, dtype=np.float)
 
         img = cv2.imread(im_path)
@@ -91,6 +93,10 @@ def gen_data(anno_file, data_dir, prefix):
             if nx2 > width or ny2 > height:
                 continue
             crop_box = np.array([nx1, ny1, nx2, ny2])
+            ny1 = int(ny1)
+            ny2 = int(ny2)
+            nx1 = int(nx1)
+            nx2 = int(nx2)
             cropped_im = img[ny1:ny2 + 1, nx1:nx2 + 1, :]
             resized_im = cv2.resize(cropped_im, (size, size),interpolation=cv2.INTER_LINEAR)
 
@@ -141,7 +147,7 @@ def parse_args():
     parser.add_argument('--anno_file', dest='annotation_file', help='landmark dataset original annotation file',
                         default=os.path.join(config.ANNO_STORE_DIR,"landmark_imagelist.txt"), type=str)
     parser.add_argument('--prefix_path', dest='prefix_path', help='annotation file image prefix root path',
-                        default='/home/wujiyang/FaceProjects/MTCNN_TRAIN/training_data/landmark_train', type=str)
+                        default='E:\DOANTHUE\MTCNN_TRAIN/training_data/landmark_train', type=str)
 
 
     args = parser.parse_args()

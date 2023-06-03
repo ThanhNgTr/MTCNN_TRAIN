@@ -105,7 +105,7 @@ class ImageDB(object):
         Returns:
             imdb: dict, image database with flipped image annotations
         '''
-        print 'append flipped images to imdb ', len(imdb)
+        print ('append flipped images to imdb ', len(imdb))
         for i in range(len(imdb)):
             imdb_ = imdb[i]
             m_bbox = imdb_['bbox_target'].copy()
@@ -125,7 +125,7 @@ class ImageDB(object):
 
             imdb.append(item)
         self.image_set_index *= 2
-        print 'after flipped images appended to imdb ', len(imdb)
+        print( 'after flipped images appended to imdb ', len(imdb))
         
         return imdb
         

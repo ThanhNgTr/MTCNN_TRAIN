@@ -7,7 +7,7 @@ Created on Fri May 25 21:29:56 2018
 """
 
 import sys
-sys.path.append("/home/wujiyang/FaceProjects/MTCNN_TRAIN")
+sys.path.append("E:\DOANTHUE\MTCNN_TRAIN")
 
 import os
 import argparse

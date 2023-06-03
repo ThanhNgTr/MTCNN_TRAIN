@@ -1,10 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Tue May 15 09:37:39 2018
 
-@author: wujiyang
-"""
 
 import os
 
@@ -23,7 +19,7 @@ TRAIN_BATCH_SIZE = 1024
 
 TRAIN_LR = 0.01
 
-END_EPOCH = 50
+END_EPOCH = 5
 
 PNET_POSTIVE_ANNO_FILENAME = "pos_12.txt"
 PNET_NEGATIVE_ANNO_FILENAME = "neg_12.txt"

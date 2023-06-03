@@ -6,7 +6,7 @@ Created on Thu May 24 19:22:32 2018
 @author: wujiyang
 """
 import sys
-sys.path.append("/home/wujiyang/FaceProjects/MTCNN_TRAIN")
+sys.path.append("E:\DOANTHUE\MTCNN_TRAIN")
 
 import os
 import config

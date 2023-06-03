@@ -25,7 +25,7 @@ def create_mtcnn_net(p_model_path=None, r_model_path=None, o_model_path=None, us
     
     if p_model_path is not None:
         pnet = PNet(use_cuda=use_cuda)
-        pnet.load_state_dict(torch.load(p_model_path))
+        pnet.load_state_dict(torch.load(p_model_path, map_location=torch.device('cpu')))
         if(use_cuda):
             pnet.to(device)
         
@@ -33,7 +33,7 @@ def create_mtcnn_net(p_model_path=None, r_model_path=None, o_model_path=None, us
     
     if r_model_path is not None:
         rnet = RNet(use_cuda=use_cuda)
-        rnet.load_state_dict(torch.load(r_model_path))
+        rnet.load_state_dict(torch.load(r_model_path, map_location=torch.device('cpu')))
         if(use_cuda):
             rnet.to(device)
         
@@ -41,7 +41,7 @@ def create_mtcnn_net(p_model_path=None, r_model_path=None, o_model_path=None, us
         
     if o_model_path is not None:
         onet = ONet(use_cuda=use_cuda)
-        onet.load_state_dict(torch.load(o_model_path))
+        onet.load_state_dict(torch.load(o_model_path, map_location=torch.device('cpu')))
         if(use_cuda):
             onet.to(device)
         
@@ -330,8 +330,8 @@ class MtcnnDetector(object):
                     crop_im_tensor = image_tools.convert_image_to_tensor(crop_im)
                     # cropped_ims_tensors[i, :, :, :] = crop_im_tensor
                     cropped_ims_tensors.append(crop_im_tensor)
-            except ValueError, e:
-                print e.message
+            except ValueError as e:
+                    print(e)
             
         feed_imgs = torch.stack(cropped_ims_tensors)
         
@@ -422,8 +422,8 @@ class MtcnnDetector(object):
                     crop_im_tensor = image_tools.convert_image_to_tensor(crop_im)
                     # cropped_ims_tensors[i, :, :, :] = crop_im_tensor
                     cropped_ims_tensors.append(crop_im_tensor)
-            except ValueError, e:
-                print e.message
+            except ValueError as e:
+                    print(e)
                 
         feed_imgs = torch.stack(cropped_ims_tensors)
 

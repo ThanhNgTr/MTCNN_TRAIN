@@ -7,7 +7,7 @@ Created on Fri May 25 20:12:13 2018
 """
 
 import sys
-sys.path.append("/home/wujiyang/FaceProjects/MTCNN_TRAIN")
+sys.path.append("E:\DOANTHUE\MTCNN_TRAIN")
 
 import cv2
 import argparse
@@ -17,7 +17,7 @@ from tools.imagedb import ImageDB
 from tools.image_reader import TestImageLoader
 import time
 import os
-import cPickle
+import pickle
 
 from tools.utils import convert_to_square, IoU
 import config
@@ -52,7 +52,7 @@ def gen_onet_data(data_dir, anno_file, pnet_model_file, rnet_model_file, prefix_
             vision.vis_two(rgb_im, boxes, boxes_align)
 
         t1 = time.time() - t
-        print 'time cost for image ', batch_idx, '/', image_reader.size, ': ', t1
+        print( 'time cost for image ', batch_idx, '/', image_reader.size, ': ', t1)
         all_boxes.append(boxes_align)
         batch_idx += 1
         
@@ -63,7 +63,7 @@ def gen_onet_data(data_dir, anno_file, pnet_model_file, rnet_model_file, prefix_
     save_file = os.path.join(save_path, "rnet_detections_%d.pkl" % int(time.time()))
     
     with open(save_file, 'wb') as f:
-        cPickle.dump(all_boxes, f, cPickle.HIGHEST_PROTOCOL)
+        pickle.dump(all_boxes, f, pickle.HIGHEST_PROTOCOL)
     
     
     #save_file = '/home/wujiyang/FaceProjects/MTCNN_TRAIN/model_store/rnet_detections_1527304558.pkl'
@@ -97,6 +97,7 @@ def get_onet_sample_data(data_dir, anno_file, det_boxs_file, prefix):
         im_idx = os.path.join(prefix,annotation[0])
 
         boxes = map(float, annotation[1:])
+        boxes=list(boxes)
         boxes = np.array(boxes, dtype=np.float32).reshape(-1, 4)
         im_idx_list.append(im_idx)
         gt_boxes_list.append(boxes)
@@ -110,9 +111,11 @@ def get_onet_sample_data(data_dir, anno_file, det_boxs_file, prefix):
     f2 = open(os.path.join(save_path, 'neg_%d.txt' % image_size), 'w')
     f3 = open(os.path.join(save_path, 'part_%d.txt' % image_size), 'w')
 
-    det_handle = open(det_boxs_file, 'r')
+ #   det_handle = open(det_boxs_file, 'r')
+ #   det_boxes = pickle.load(det_handle)
+    with open(det_boxs_file, 'rb') as f:
+        det_boxes = pickle.load(f, encoding='latin1')
 
-    det_boxes = cPickle.load(det_handle)
     print(len(det_boxes), num_of_images)
     assert len(det_boxes) == num_of_images, "incorrect detections or ground truths"
     
@@ -205,7 +208,7 @@ def parse_args():
     parser.add_argument('--gpu', dest='use_cuda', help='with gpu',
                         default=config.USE_CUDA, type=bool)
     parser.add_argument('--prefix_path', dest='prefix_path', help='annotation file image prefix root path',
-                        default='/home/wujiyang/data/Widerface/WIDER_train/images', type=str)
+                        default='E:\DOANTHUE/WIDER_train/images', type=str)
 
     args = parser.parse_args()
     return args

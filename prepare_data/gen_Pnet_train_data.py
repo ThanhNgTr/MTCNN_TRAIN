@@ -6,7 +6,7 @@ Created on Tue May 15 09:35:11 2018
 @author: wujiyang
 """
 import sys
-sys.path.append("/home/wujiyang/FaceProjects/MTCNN_TRAIN")
+sys.path.append("E:\DOANTHUE\MTCNN_TRAIN")
 
 import argparse
 import numpy as np
@@ -170,7 +170,7 @@ def parse_args():
     parser.add_argument('--anno_file', dest='annotation_file', help='wider face original annotation file',
                         default=os.path.join(config.ANNO_STORE_DIR,"wider_origin_anno.txt"), type=str)
     parser.add_argument('--prefix_path', dest='prefix_path', help='annotation file image prefix root path',
-                        default='/home/wujiyang/data/Widerface/WIDER_train/images', type=str)
+                        default='E:\DOANTHUE/WIDER_train/images', type=str)
 
 
 
